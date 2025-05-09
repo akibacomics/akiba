@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="result-container">
+    <h2 class="result-title">검색 결과</h2>
+
+    {% if results %}
+    <table class="result-table">
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>위치</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.name }}</td>
+                <td>{{ result.location }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>검색 결과가 없습니다.</p>
+    {% endif %}
+</div>
+{% endblock %}

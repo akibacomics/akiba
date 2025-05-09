@@ -1,0 +1,8 @@
+# Ignore system folders and files
+AppData/
+Documents/
+Cookies/
+Local Settings/
+OneDrive/
+.gitconfig
+.lesshst

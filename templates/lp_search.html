@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>LP 검색</h2>
+<form method="post">
+    <input type="text" name="keyword" placeholder="제목 또는 가수 검색">
+    <button type="submit">검색</button>
+</form>
+
+<div class="search-result-container">
+    {% if results %}
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>가수 또는 곡명</th>
+                    <th>위치</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in results %}
+                <tr>
+                    <td>{{ item.name if item.name != 'NaN' else '' }}</td>
+                    <td>{{ item.location if item.location != 'NaN' else '' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>검색 결과가 없습니다.</p>
+    {% endif %}
+
+    <!-- 고정 스타일 홈 버튼 -->
+    <a href="/" class="home-button-fixed">← 홈으로 돌아가기</a>
+</div>
+{% endblock %}

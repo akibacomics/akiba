@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>도서 검색 결과</h2>
+<div class="search-result-container">
+    {% if results %}
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>도서명</th>
+                    <th>위치</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in results %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.location }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>검색 결과가 없습니다.</p>
+    {% endif %}
+
+    <!-- 이미지 추가 -->
+    <div class="search-result-image">
+        <img src="/static/images/sample-image.jpg" alt="검색 결과 이미지" style="width: 100%; max-width: 500px; margin-top: 20px;">
+    </div>
+
+    <!-- 검색 결과 바로 밑에 홈 버튼 위치 -->
+    <a href="/" class="home-button">← 홈으로 돌아가기</a>
+</div> <!-- search-result-container 닫기 -->
+{% endblock %}
+
