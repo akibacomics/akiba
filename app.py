@@ -48,15 +48,9 @@ def lp_search():
             {'name': f"{row['title']} - {row['singer']}", 'location': row['location']}
             for index, row in filtered.iterrows()
         ]
+        
+    # 결과를 lp_search.html 템플릿으로 전달
     return render_template('lp_search.html', results=results)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-            for index, row in filtered.iterrows()
-        ]
-    return render_template('lp_search.html', results=results)
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
