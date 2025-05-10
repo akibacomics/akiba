@@ -1,8 +1,9 @@
-# Ignore system folders and files
+# Exclude common system files and directories
 AppData/
 Documents/
 Cookies/
 Local Settings/
-OneDrive/
-.gitconfig
-.lesshst
+Templates/
+*.log
+*.bak
+*.swp
