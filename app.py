@@ -4,54 +4,40 @@ import os
 
 app = Flask(__name__)
 
-# 실행 경로 기준으로 CSV 파일 경로 설정
-base_path = os.path.dirname(os.path.abspath(__file__))
-comics_path = os.path.join(base_path, 'comics.csv')  # comics.csv 파일 경로
-lps_path = os.path.join(base_path, 'lps.csv')        # lps.csv 파일 경로
+# app.py 파일 위치 기준으로 data 폴더 내 CSV 경로 설정
+base_dir = os.path.dirname(os.path.abspath(__file__))
+comics_path = os.path.join(base_dir, 'data', 'comics_utf8.csv')
+lps_path = os.path.join(base_dir, 'data', 'lps_utf8.csv')
 
-# CSV 파일에서 도서(만화책) 데이터 읽기
-comics_data = pd.read_csv(comics_path)
+# CSV 데이터 로드
+comics_data = pd.read_csv(comics_path, encoding='utf-8')
 
-# 홈 페이지 (버튼 2개만 있는 화면)
 @app.route('/')
 def home():
     return render_template('home.html')
 
-# 도서 검색 페이지
 @app.route('/book_search', methods=['GET', 'POST'])
 def book_search():
     results = []
     if request.method == 'POST':
         keyword = request.form['keyword']
-        # 검색 기능: comics_data에서 'name' 열을 기준으로 keyword를 포함한 항목을 찾기
         results = comics_data[comics_data['name'].str.contains(keyword, case=False, na=False)]
-        results = results.to_dict(orient='records')  # 결과를 dict 형식으로 변환
+        results = results.to_dict(orient='records')
     return render_template('book_search.html', results=results)
 
-# LP 검색 페이지 (경로를 /lp_search로 수정)
 @app.route('/lp_search', methods=['GET', 'POST'])
 def lp_search():
     results = None
     if request.method == 'POST':
-        keyword = request.form['keyword'].lower()  # 입력받은 검색어를 소문자로 변환
-        df = pd.read_csv(lps_path)  # LP CSV 데이터 읽기 (엑셀에서 CSV로 변경된 부분)
-
-        # 'title', 'singer', 'location' 열 중 하나라도 keyword를 포함한 항목을 필터링
+        keyword = request.form['keyword'].lower()
+        df = pd.read_csv(lps_path, encoding='utf-8')
         filtered = df[
             df['title'].astype(str).str.lower().str.contains(keyword, na=False) |
             df['singer'].astype(str).str.lower().str.contains(keyword, na=False) |
             df['location'].astype(str).str.lower().str.contains(keyword, na=False)
         ]
-
-        # 필터링된 결과를 리스트로 변환
-        results = [
-            {'name': f"{row['title']} - {row['singer']}", 'location': row['location']}
-            for index, row in filtered.iterrows()
-        ]
-        
-    # 결과를 lp_search.html 템플릿으로 전달
+        results = [{'name': f"{row['title']} - {row['singer']}", 'location': row['location']} for _, row in filtered.iterrows()]
     return render_template('lp_search.html', results=results)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
