@@ -6,11 +6,11 @@ app = Flask(__name__)
 
 # 실행 경로 기준으로 엑셀 파일 경로 설정
 base_path = os.path.dirname(os.path.abspath(__file__))
-comics_path = os.path.join(base_path, 'comics.xlsx')
-lps_path = os.path.join(base_path, 'lps.xlsx')
+comics_path = os.path.join(base_path, 'comics.csv')
+lps_path = os.path.join(base_path, 'lps.csv')
 
 # 엑셀 파일에서 도서(만화책) 데이터 읽기
-comics_data = pd.read_excel(comics_path)
+comics_data = pd.read_csv(comics_path)
 
 # 홈 페이지 (버튼 2개만 있는 화면)
 @app.route('/')
