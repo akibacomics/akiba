@@ -1,13 +1,13 @@
-from flask import Flask, render_template, request
-import pandas as pd
 import os
+import pandas as pd
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
 # app.py 파일 위치 기준으로 data 폴더 내 CSV 경로 설정
-base_dir = os.path.dirname(os.path.abspath(__file__))
-comics_path = os.path.join(base_dir, 'data', 'comics_utf8.csv')
-lps_path = os.path.join(base_dir, 'data', 'lps_utf8.csv')
+base_dir = os.path.dirname(os.path.abspath(__file__))  # app.py의 절대 경로
+comics_path = os.path.join(base_dir, 'data', 'comics.csv')  # comics.csv 경로 설정
+lps_path = os.path.join(base_dir, 'data', 'lps.csv')  # lps.csv 경로 설정
 
 # CSV 데이터 로드
 comics_data = pd.read_csv(comics_path, encoding='utf-8')
