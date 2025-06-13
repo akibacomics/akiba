@@ -4,12 +4,12 @@ import os
 
 app = Flask(__name__)
 
-# 실행 경로 기준으로 엑셀 파일 경로 설정
+# 실행 경로 기준으로 CSV 파일 경로 설정
 base_path = os.path.dirname(os.path.abspath(__file__))
-comics_path = os.path.join(base_path, 'comics.csv')
-lps_path = os.path.join(base_path, 'lps.csv')
+comics_path = os.path.join(base_path, 'comics.csv')  # comics.csv 파일 경로
+lps_path = os.path.join(base_path, 'lps.csv')        # lps.csv 파일 경로
 
-# 엑셀 파일에서 도서(만화책) 데이터 읽기
+# CSV 파일에서 도서(만화책) 데이터 읽기
 comics_data = pd.read_csv(comics_path)
 
 # 홈 페이지 (버튼 2개만 있는 화면)
@@ -34,7 +34,7 @@ def lp_search():
     results = None
     if request.method == 'POST':
         keyword = request.form['keyword'].lower()  # 입력받은 검색어를 소문자로 변환
-        df = pd.read_excel(lps_path)  # LP 엑셀 데이터 읽기
+        df = pd.read_csv(lps_path)  # LP CSV 데이터 읽기 (엑셀에서 CSV로 변경된 부분)
 
         # 'title', 'singer', 'location' 열 중 하나라도 keyword를 포함한 항목을 필터링
         filtered = df[
@@ -54,3 +54,4 @@ def lp_search():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
