@@ -9,8 +9,8 @@ base_dir = os.path.dirname(os.path.abspath(__file__))  # app.py의 절대 경로
 comics_path = os.path.join(base_dir, 'data', 'comics.csv')  # comics.csv 경로 설정
 lps_path = os.path.join(base_dir, 'data', 'lps.csv')  # lps.csv 경로 설정
 
-# CSV 데이터 로드
-comics_data = pd.read_csv(comics_path, encoding='utf-8')
+# CSV 데이터 로드 (인코딩 cp949로 변경)
+comics_data = pd.read_csv(comics_path, encoding='cp949')
 
 @app.route('/')
 def home():
@@ -30,7 +30,7 @@ def lp_search():
     results = None
     if request.method == 'POST':
         keyword = request.form['keyword'].lower()
-        df = pd.read_csv(lps_path, encoding='utf-8')
+        df = pd.read_csv(lps_path, encoding='cp949')  # lps.csv도 인코딩 맞춰 변경
         filtered = df[
             df['title'].astype(str).str.lower().str.contains(keyword, na=False) |
             df['singer'].astype(str).str.lower().str.contains(keyword, na=False) |
