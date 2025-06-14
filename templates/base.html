@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!-- base.html 헤더에 폰트 추가 -->
+<head>
+    <meta charset="UTF-8">
+    <title>Akiba Comics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Google Fonts: Nanum Gothic 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<header>
+    <h1><a href="/" style="text-decoration: none; color: inherit;">AKIBA COMICS 검색 시스템</a></h1>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <p>&copy; 2025 Akiba Comics. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
